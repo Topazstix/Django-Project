@@ -1,1 +1,0 @@
-set DJANGO_SETTINGS_MODULE='django_project.settings'

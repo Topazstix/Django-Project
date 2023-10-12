@@ -72,7 +72,11 @@ session.
 #>
 function global:deactivate ([switch]$NonDestructive) {
     # Revert to original values
-
+    
+    ## unset django settings module
+    $env:DJANGO_SETTINGS_MODULE = 
+    
+    
     # The prior prompt:
     if (Test-Path -Path Function:_OLD_VIRTUAL_PROMPT) {
         Copy-Item -Path Function:_OLD_VIRTUAL_PROMPT -Destination Function:prompt
@@ -218,6 +222,9 @@ deactivate -nondestructive
 # Now set the environment variable VIRTUAL_ENV, used by many tools to determine
 # that there is an activated venv.
 $env:VIRTUAL_ENV = $VenvDir
+
+## Set django settings module
+$env:DJANGO_SETTINGS_MODULE = 'django_project.settings'
 
 if (-not $Env:VIRTUAL_ENV_DISABLE_PROMPT) {
 

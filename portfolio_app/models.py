@@ -66,6 +66,6 @@ class ProjectsInPortfolio(models.Model):
     #Just the entry will be removed from this table
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
-class Meta:
-    #ensures that each project is associated with only one portfolio
-    unique_together = ('portfolio', 'project')
+    class Meta:
+        #ensures that each project is associated with only one portfolio
+        unique_together = ('portfolio', 'project')
