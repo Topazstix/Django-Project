@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from django.urls import reverse
 
@@ -13,7 +14,7 @@ class Portfolio(models.Model):
     
     def get_absolute_url(self):
         ## Figure out how to pass the absolute URL to the portfolio-detail view
-        pass
+        return reverse('portfolio-detail', args=[str(self.id)])  
 
 
 class Project(models.Model):
@@ -26,7 +27,7 @@ class Project(models.Model):
     
     def get_absolute_url(self):
         ## Figure out how to pass the absolute URL to the project-detail view
-        pass    
+        return reverse('project-detail', args=[str(self.id)])
 
 
 class Student(models.Model):
@@ -55,17 +56,17 @@ class Student(models.Model):
         return reverse('student-detail', args=[str(self.id)])  
 
 
-# Model to represent the relationship between projects and portfolios.
-# Each instance of this model will have a reference to a Portfolio and a Project,
-# creating a many-to-many relationship between portfolios and projects. T
-class ProjectsInPortfolio(models.Model):
+# # Model to represent the relationship between projects and portfolios.
+# # Each instance of this model will have a reference to a Portfolio and a Project,
+# # creating a many-to-many relationship between portfolios and projects. T
+# class ProjectsInPortfolio(models.Model):
 
-    #deleting a portfolio will delete associate projects
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
-    #deleting a project will not affect the portfolio
-    #Just the entry will be removed from this table
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+#     #deleting a portfolio will delete associate projects
+#     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+#     #deleting a project will not affect the portfolio
+#     #Just the entry will be removed from this table
+#     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
-    class Meta:
-        #ensures that each project is associated with only one portfolio
-        unique_together = ('portfolio', 'project')
+#     class Meta:
+#         #ensures that each project is associated with only one portfolio
+#         unique_together = ('portfolio', 'project')

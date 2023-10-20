@@ -1,0 +1,47 @@
+{% extends 'portfolio_app/base_template.html' %} 
+{% load static %}
+
+<!-- Testing shit for adding custom bullet points -->
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{% static 'testing.scss' %}">
+<body>
+
+{% block content %}
+    <h1>Portfolio: {{ portfolio.title }}</h1>
+
+    <p><strong>Email:</strong> {{ portfolio.contact_email }}</p>
+    <p><strong>About:</strong> {{ portfolio.about }}</p>
+
+    <h2>Projects: <a class="p-1 ms-5 btn btn-info border border-primary-subtle " href="{% url 'create-project' portfolio.id %}" role="button">New Project</a></h2>
+    {% if project_list %}
+        <ul>
+            <br>
+            {% for project in project_list %}
+                <li>
+                    <h4>
+                        {{ project.title }}: <a class="p-1 ms-2 btn btn-primary border border-primary-subtle" href="{{ project.get_absolute_url }}" role="button">View</a>
+                        <a class="p-1 ms-2 btn btn-primary border border-primary-subtle" href="{% url 'update-project' project_id=project.id %}" role="button">Update</a>
+                        <a class="p-1 ms-2 btn btn-danger border border-primary-subtle " href="{% url 'delete-project' portfolio_id=portfolio.id project_id=project.id %}" role="button">Delete</a>
+                    </h4>
+                    <ul>
+                        <li>
+                            Description: {{ project.description }}
+                            <!-- Debugging lines -->
+                            <p>Debug: Portfolio ID: {{ portfolio.id }}</p>
+                            <p>Debug: Project ID: {{ project.id }}</p>
+
+                        </li>
+                    </ul>
+                </li>
+            <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no projects available.</p>
+    {% endif %}
+
+{% endblock %}
+
+</body>
+</html>
