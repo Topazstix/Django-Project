@@ -1,0 +1,30 @@
+<!-- inherit from base.html --> 
+{% extends 'portfolio_app/base_template.html' %}
+{% comment %} 
+<!-- Replace block content in base_template.html --> 
+{% block content %} 
+    <form action="" method="POST"> {% csrf_token %} 
+        <table> 
+            {{ form.as_table }}
+        </table>
+    <input type="submit" name="Submit">
+</form> 
+    
+{% endblock %} {% endcomment %}
+
+
+{% comment %} {% extends 'portfolio_app/base_template.html' %} {% endcomment %}
+
+{% block content %}
+    <form action="" method="POST" class="form">
+        {% csrf_token %}
+        <div class="mb-3 text-md-center ">
+            {{ form.field_name.label_tag }}
+            {{ form.field_name }}
+        </div>
+         <table> 
+            {{ form.as_table }}
+        </table>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

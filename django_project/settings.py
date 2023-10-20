@@ -11,7 +11,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, uuid
+
+## Helper function to load or generate a new environment variable
+def load_or_generate_env_var(env_var_name):
+    # Attempt to load the environment variable
+    env_var_value = os.environ.get(env_var_name)
+    
+    # If not found, generate a new value
+    if env_var_value is None:
+        env_var_value = str(uuid.uuid4())+"-".join(str(uuid.uuid4()))
+        
+    return env_var_value
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +31,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = load_or_generate_env_var('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-project--topazstix.repl.co']
+ALLOWED_HOSTS = [
+    'django-project--topazstix.repl.co',
+    '127.0.0.1',
+]
 
 # Application definition
 
@@ -37,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'portfolio_app',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
